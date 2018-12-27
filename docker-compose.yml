@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  express-docker-test:
+    build: .
+    command: npm start
+    volumes:
+      - .:/var/www/express-docker-test
+    ports:
+      - "0.0.0.0:3000:3000"
+      - "0.0.0.0:27017:27017"
+      - "5858:5858"
+    networks:
+      - front-tier
+      - back-tier
+    depends_on:
+      - "redis"
+      - "db"
+    links:
+      - db
+      - redis
+ 
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports: ["6379"]
+    networks:
+      - back-tier
+  db:
+    image: mongo:latest
+    container_name: db
+    volumes:
+      - "db-data:/data/db"
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
