@@ -14,15 +14,15 @@ services:
       - front-tier
       - back-tier
     depends_on:
-      - "redis"
+      - "cachdb"
       - "db"
     links:
       - db
-      - redis
+      - cachdb
  
-  redis:
+  cachdb:
     image: redis:alpine
-    container_name: redis
+    container_name: cachdb
     ports: ["6379"]
     networks:
       - back-tier
