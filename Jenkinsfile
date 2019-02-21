@@ -1,4 +1,4 @@
-node("docker") {
+node("docker-compose") {
     stage 'Checkout' 
         checkout scm
     stage 'Jenkins Environment'
