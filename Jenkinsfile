@@ -1,7 +1,19 @@
 node() {
-    stage 'Checkout' 
-        checkout scm
-    stage 'Jenkins Environment'
+    def app
+
+    environment {
+        COMPOSE_PROJECT_NAME = "${env.JOB_NAME}-${env.BUILD_ID}"
+    }
+
+    stage 'Checkout' {
+            checkout scm
+    } 
+
+    stage('Setup Environment') {
+        sh "cp ./nginx/default.conf.example ./nginx/default.conf"
+    }
+
+    stage 'Jenkins Environment' {
         echo "BUILD_NUMBER :: ${env.BUILD_NUMBER}"
         echo "BUILD_ID :: ${env.BUILD_ID}"
         echo "BUILD_DISPLAY_NAME :: ${env.BUILD_DISPLAY_NAME}"
@@ -16,9 +28,11 @@ node() {
         echo "JENKINS_URL :: ${env.JENKINS_URL}"
         echo "BUILD_URL :: ${env.BUILD_URL}"
         echo "JOB_URL :: ${env.JOB_URL}"    
+    }
+        
     stage 'Build docker'
-        sh "docker build -t docker-test:B${BUILD_NUMBER} -f Dockerfile ."
+        // sh "docker build -t docker-test:B${BUILD_NUMBER} -f Dockerfile ."
     stage 'Run docker'
-        sh "docker-compose up --force-recreate --abort-on-container-exit"
-        sh "docker-compose down -v"
+        // sh "docker-compose up --force-recreate --abort-on-container-exit"
+        // sh "docker-compose down -v"
 }
