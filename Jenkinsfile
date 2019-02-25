@@ -1,4 +1,4 @@
-pipeline {
+node {
     environment {
         COMPOSE_PROJECT_NAME = "${env.JOB_NAME}-${env.BUILD_ID}"
     }
