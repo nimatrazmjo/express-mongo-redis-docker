@@ -38,6 +38,8 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
+# Set nginx environment
+COPY ./nginx/default.conf /etc/nginx/sites-enabled/default
 
 # Set the workdir /var/www/myapp
 WORKDIR /var/www/express-docker-test
@@ -56,7 +58,9 @@ COPY . .
 # Copy .env.docker to workdir/.env - use the docker env
 
 # Expose application ports - (4300 - for API and 4301 - for front end)
-EXPOSE 3000 27017
+EXPOSE 80
+# RUN npm start
+CMD ["nginx", "-g", "daemon off;"]
 
 # Generate build
 # RUN npm run build

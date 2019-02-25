@@ -2,13 +2,13 @@ version: "3"
 
 services:
   express-docker-test:
-    container_name: docker-test
+    container_name: ${COMPOSE_PROJECT_NAME}
     build: .
     command: npm start
     volumes:
       - .:/var/www/express-docker-test
     ports:
-      - "0.0.0.0:3000:3000"
+      - "0.0.0.0:3001:3001"
       - "0.0.0.0:27017:27017"
       - "5858:5858"
     networks:
