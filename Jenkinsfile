@@ -8,6 +8,9 @@ node() {
     stage 'Checkout' {
             checkout scm
     } 
+    // stage('SCM Checkout') {
+    //     git 'https://github.com/nimatullah/express-mongo-redis-docker'
+    // }
 
     stage('Setup Environment') {
         sh "cp ./nginx/default.conf.example ./nginx/default.conf"
