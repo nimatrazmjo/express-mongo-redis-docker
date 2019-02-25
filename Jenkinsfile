@@ -14,5 +14,5 @@ node {
     //     sh "docker stop ${containerID}"
     //     sh "docker rm ${containerID}"      
     stage 'Integration Test'
-        sh "docker-compose up --force-recreate --abort-on-container-exit"
+        sh "IMAGE_NAME_TAG =docker-node:B${BUILD_NUMBER}  docker-compose up --force-recreate --abort-on-container-exit"
 }
