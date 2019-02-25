@@ -1,14 +1,11 @@
 node {
-    environment {
-        COMPOSE_PROJECT_NAME = "${env.JOB_NAME}-${env.BUILD_ID}"
-    }
+    // environment {
+    //     COMPOSE_PROJECT_NAME = "${env.JOB_NAME}-${env.BUILD_ID}"
+    // }
 
     stage 'Checkout' {
             checkout scm
     } 
-    // stage('SCM Checkout') {
-    //     git 'https://github.com/nimatullah/express-mongo-redis-docker'
-    // }
 
     stage('Setup Environment') {
         sh "cp ./nginx/default.conf.example ./nginx/default.conf"
@@ -31,9 +28,7 @@ node {
         echo "JOB_URL :: ${env.JOB_URL}"    
     }
         
-    stage 'Build docker'
-        // sh "docker build -t docker-test:B${BUILD_NUMBER} -f Dockerfile ."
-    stage 'Run docker'
-        // sh "docker-compose up --force-recreate --abort-on-container-exit"
-        // sh "docker-compose down -v"
+    stage 'Build docker' {
+        sh "docker build -t docker-test:B${env.BUILD_NUMBER} -f Dockerfile ."
+    }
 }
