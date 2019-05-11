@@ -2,12 +2,10 @@ version: "3"
 
 services:
   express-docker-test:
-    image: "docker-node:B${BUILD_NUMBER}"
+    image: "docker-node:${BUILD_NUMBER}"
     build:
       context: .
     command: npm start
-    volumes:
-      - .:/var/www/express-docker-test
     ports:
       - "0.0.0.0:3001:3001"
       - "0.0.0.0:27017:27017"

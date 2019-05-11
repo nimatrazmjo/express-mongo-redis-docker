@@ -6,12 +6,12 @@
 
 ```bash
 # Run in Docker
-docker-compose up
+ BUILD_NUMBER=1.0 docker-compose up
 # use -d flag to run in background
 
 # Tear down
-docker-compose down
+BUILD_NUMBER=1.0 docker-compose down
 
 # To re-build
-docker-compose build
+BUILD_NUMBER=1.0 docker-compose build
 ```
